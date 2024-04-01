@@ -1,0 +1,4 @@
+.venv
+.idea
+NewsPortal/safepass.py
+__pycache__

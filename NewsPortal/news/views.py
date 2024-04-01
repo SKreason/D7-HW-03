@@ -9,6 +9,7 @@ from django.db.models import Exists, OuterRef
 from .forms import PostForm
 from .models import Post, Category, Subscriber
 from .filters import PostFilter
+from .tasks import hello
 
 
 class PublicationsList(ListView):
@@ -17,6 +18,7 @@ class PublicationsList(ListView):
     template_name = 'publications.html'
     context_object_name = 'Публикации'
     paginate_by = 10  # количество постов на странице
+    hello.delay()
 
     def get_queryset(self):
         # Получаем обычный запрос
@@ -35,6 +37,7 @@ class PublicationsList(ListView):
         # Добавляем в контекст объект фильтрации.
         context['filterset'] = self.filterset
         return context
+
 
 
 class NewsList(ListView):

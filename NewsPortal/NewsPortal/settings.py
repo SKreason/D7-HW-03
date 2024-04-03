@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 from pathlib import Path
-from safepass import PASS
+# from safepass import PASS
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -108,15 +108,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# кэширование
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-        'LOCATION': os.path.join(BASE_DIR, 'cache_files'), # Указываем, куда будем сохранять кэшируемые файлы! Не забываем создать папку cache_files внутри папки с manage.py!
-    }
-}
-
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -169,7 +160,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'skvdjangosendmessedge'
-EMAIL_HOST_PASSWORD = PASS  # переменная с паролем от почты хранится в файле safepass.py
+# EMAIL_HOST_PASSWORD = PASS  # переменная с паролем от почты хранится в файле safepass.py
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 DEFAULT_FROM_EMAIL = "skvdjangosendmessedge@mail.ru"

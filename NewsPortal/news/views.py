@@ -10,7 +10,7 @@ from .forms import PostForm
 from .models import Post, Category, Subscriber
 from .filters import PostFilter
 from .tasks import send_email_task
-
+from django.core.cache import cache
 
 class PublicationsList(ListView):
     model = Post
@@ -95,6 +95,16 @@ class PostDetail(DetailView):
     model = Post
     template_name = 'post.html'
     context_object_name = 'Новость'
+    queryset = Post.objects.all()
+
+    def get_object(self, *args, **kwargs):  # переопределяем метод получения объекта, как ни странно
+        obj = cache.get(f'post-{self.kwargs["pk"]}', None)  # кэш очень похож на словарь, и метод get действует так же.
+        # Он забирает значение по ключу, если его нет, то забирает None.
+        # Если объекта нет в кэше, то получаем его и записываем в кэш
+        if not obj:
+            obj = super().get_object(queryset=self.queryset)
+            cache.set(f'post-{self.kwargs["pk"]}', obj)
+            return obj
 
 
 class PostSearch(ListView):

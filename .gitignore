@@ -2,3 +2,4 @@
 .idea
 NewsPortal/safepass.py
 __pycache__
+NewsPortal/cache_files/

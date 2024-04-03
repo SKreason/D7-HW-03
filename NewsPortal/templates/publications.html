@@ -36,6 +36,7 @@
 {% endfor %}
 {% endblock content %}
 {% block page %}
+
 {# Добавляем пагинацию на страницу #}
 
    {# Информация о предыдущих страницах #}
@@ -58,4 +59,5 @@
            <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
        {% endif %}
    {% endif %}
+
 {% endblock page %}

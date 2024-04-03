@@ -9,7 +9,7 @@ from django.db.models import Exists, OuterRef
 from .forms import PostForm
 from .models import Post, Category, Subscriber
 from .filters import PostFilter
-from .tasks import hello
+from .tasks import send_email_task
 
 
 class PublicationsList(ListView):
@@ -18,7 +18,6 @@ class PublicationsList(ListView):
     template_name = 'publications.html'
     context_object_name = 'Публикации'
     paginate_by = 10  # количество постов на странице
-    hello.delay()
 
     def get_queryset(self):
         # Получаем обычный запрос
@@ -135,6 +134,8 @@ class NewCreate(PermissionRequiredMixin, CreateView):
     def form_valid(self, form):
         post = form.save(commit=False)
         post.categoryType = 'NW'
+        post.save()
+        send_email_task.delay(post.pk)
         return super().form_valid(form)
 
 
@@ -149,6 +150,8 @@ class ArticleCreate(PermissionRequiredMixin, CreateView):
     def form_valid(self, form):
         post = form.save(commit=False)
         post.categoryType = 'AR'
+        post.save()
+        send_email_task(post.pk)
         return super().form_valid(form)
 
 

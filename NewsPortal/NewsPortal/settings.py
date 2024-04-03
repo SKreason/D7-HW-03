@@ -129,16 +129,20 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# адрес папки со статикой
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
+# адрес перенаправления после входа/выхода
 LOGIN_REDIRECT_URL = 'publication'
 LOGOUT_REDIRECT_URL = 'publication'
 
+# вид аутентификации пользователя
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
+# Настройки регистрации уч. записи
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
@@ -146,7 +150,12 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_FORMS = {"signup": "accounts.forms.CustomSignupForm"}
 
+# настройки сервиса для рассылок писем
+
+# рассылка через почтовый сервис (закомментировать если не используется)
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# рассылка через "консоль" для отладки (закомментировать если не используется)
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_PORT = 465
@@ -154,23 +163,26 @@ EMAIL_HOST_USER = 'skvdjangosendmessedge'
 EMAIL_HOST_PASSWORD = PASS  # переменная с паролем от почты хранится в файле safepass.py
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
-
 DEFAULT_FROM_EMAIL = "skvdjangosendmessedge@mail.ru"
 
+# Адреса для рассылки группы менеджеров
 SERVER_EMAIL = "skvdjangosendmessedge@mail.ru"
 MANAGERS = (
     ('Сергей', 'skvmanagerdjango@mail.ru'),
 )
 
+# Адреса для рассылки группы админов
 ADMINS = (
     ('Sergey', 'skvworkdjango@mail.ru'),
 )
 
+# Настройки для APSCHEDULER
 APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
 APSCHEDULER_RUN_NOW_TIMEOUT = 25
 
 SITE_URL = 'http://127.0.0.1:8000'
 
+# Настройки для CELERY
 CELERY_BROKER_URL = 'redis://localhost:6379'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']

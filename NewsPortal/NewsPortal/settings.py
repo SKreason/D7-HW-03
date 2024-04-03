@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 from pathlib import Path
-# from safepass import PASS
+from safepass import PASS
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -169,7 +169,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'skvdjangosendmessedge'
-# EMAIL_HOST_PASSWORD = PASS  # переменная с паролем от почты хранится в файле safepass.py
+EMAIL_HOST_PASSWORD = PASS  # переменная с паролем от почты хранится в файле safepass.py
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 DEFAULT_FROM_EMAIL = "skvdjangosendmessedge@mail.ru"
